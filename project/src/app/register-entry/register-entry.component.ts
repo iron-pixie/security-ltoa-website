@@ -189,7 +189,8 @@ export class RegisterEntryComponent implements OnInit {
     console.log(i);
     this.submittingGuest=true;
     this.successfulRegistration=false
-    this.focusedGuest=this.residentSource.filteredData[i];
+    console.log(this.tableSource.filteredData)
+    this.focusedGuest=this.tableSource.filteredData[i];
   }
 
   registerEntry(){

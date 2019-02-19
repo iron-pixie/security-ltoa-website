@@ -18,6 +18,15 @@
     height:40%;
 }
 
+.paragraphData{
+    left:10px;
+    text-align: left
+}
+
+.titleData{
+    margin-bottom:0px;
+}
+
 .yesButton{
     margin-right: 10px;
 }

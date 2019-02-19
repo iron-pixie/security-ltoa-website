@@ -2,8 +2,7 @@
   <form [formGroup]="searchParams">
     <mat-card class="search-params">Search Guest Database
   
-      <br><br>
-      <!--<mat-divider></mat-divider>-->
+      <br><br><mat-divider></mat-divider><br>
   
       <mat-form-field class="example-full-width">
         <input 
@@ -71,7 +70,7 @@
         </mat-autocomplete>-->
       </mat-form-field>
 
-      <mat-divider></mat-divider>
+      <!--><mat-divider></mat-divider>
       <br><br>
 
       <mat-form-field class="example-full-width">
@@ -83,7 +82,7 @@
             value=""
             (keyup)="sortDropdown()"
           >  
-        </mat-form-field>
+        </mat-form-field>-->
   
       <!--<mat-divider></mat-divider>-->
   
@@ -124,11 +123,11 @@
       <mat-paginator [pageSize]="4" [length]="pageingLength" [pageIndex]="pageingIndex" (page)="pageEvent = paginationChange($event)"></mat-paginator>
     </mat-card>
     <mat-card class="botCard memberCard">
-      <p>Resident Searched Data</p>
-      <p>Name: {{residentNam}}</p>
-      <p>Address: {{residentAddres}}</p>
-      <p>Phone Number: {{phon}}</p>
-      <p>Email: {{emai}}</p>
+      <p class="titleData">Resident Searched Data</p>
+      <p class="paragraphData">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name:&nbsp;{{residentNam}}</p>
+      <p class="paragraphData">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Address:&nbsp;{{residentAddres}}</p>
+      <p class="paragraphData">Phone Number:&nbsp;{{phon}}</p>
+      <p class="paragraphData">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:&nbsp;{{emai}}</p>
     </mat-card>
   </div>
   
