@@ -14,7 +14,8 @@ export class TableUiGuestsComponent implements OnInit {
   columnNames;
   dataArray:Guest[]=[];
   dataSource;
-  userLevel
+  userLevel;
+  pageingLength;
 
   constructor(private http:HttpClient, private router:Router) { 
     this.columnNames = ["Guest Name","Start Date","End Date"];
@@ -45,6 +46,7 @@ export class TableUiGuestsComponent implements OnInit {
           )
         }
         this.dataSource = new MatTableDataSource(this.dataArray); 
+        this.pageingLength = this.dataArray.length;
         let memberName = window.localStorage.getItem("residentName");
         if(this.userLevel=="resident"){
           this.dataSource.filter = memberName.trim().toLowerCase();

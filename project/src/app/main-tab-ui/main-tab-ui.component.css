@@ -4,5 +4,11 @@
 
 .tab{
     margin-top: 10px;
-    margin-left: 13px;
+    margin-left: 14px;
+}
+
+.refresh{
+    float: right;
+    margin-right: 2.5%;
+    margin-top:10px;
 }

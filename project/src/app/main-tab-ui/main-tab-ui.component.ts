@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'main-tab-ui',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MainTabUiComponent {
 
-  constructor(private router:Router){}
+  constructor(private router:Router, private location:Location){}
 
   ngOnInit(){
 
@@ -25,5 +26,10 @@ export class MainTabUiComponent {
   navigateHome(){
     let userLevel = localStorage.getItem('userLevel');
     this.router.navigate(['/web/home/'+userLevel])
+  }
+
+  refresh(){
+    console.log("REFRESH!");
+    location.reload();
   }
 }

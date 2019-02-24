@@ -54,14 +54,18 @@ export class AddGuestComponent implements OnInit {
         }
       })
 
+      let today = new Date();
+
     this.formGroup = new FormGroup({
       guestName:new FormControl(),
-      allowedStartTime: new FormControl(),
+      allowedStartTime: new FormControl("2019-02-23"),
       allowedEndTime: new FormControl(),
       reason: new FormControl(),
       residentName: new FormControl(""),
       residentAddress: new FormControl("")
     });
+
+    this.formGroup.get("allowedStartTime").setValue("2019-02-23");
   }
 
   ngOnInit() {

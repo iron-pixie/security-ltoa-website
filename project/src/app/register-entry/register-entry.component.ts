@@ -143,10 +143,20 @@ export class RegisterEntryComponent implements OnInit {
   filterResidentData(){
     this.residentNameSource.filter = this.searchParams.get("residentName").value.toLowerCase().trim();
     this.residentAddressSource.filter = this.searchParams.get("residentAddress").value.toLowerCase().trim();
-    this.residentNam=this.residentNameSource.filteredData[0].memberName;
-    this.residentAddres=this.residentNameSource.filteredData[0].memberAddress;
-    this.phon=this.residentNameSource.filteredData[0].contactNumber;
-    this.emai=this.residentNameSource.filteredData[0].email;
+
+    if(this.residentNameSource.filteredData.length===1){
+      this.residentNam=this.residentNameSource.filteredData[0].memberName;
+      this.residentAddres=this.residentNameSource.filteredData[0].memberAddress;
+      this.phon=this.residentNameSource.filteredData[0].contactNumber;
+      this.emai=this.residentNameSource.filteredData[0].email;
+    }
+    if(this.residentAddressSource.filteredData.length===1){
+      this.residentNam=this.residentAddressSource.filteredData[0].memberName;
+      this.residentAddres=this.residentAddressSource.filteredData[0].memberAddress;
+      this.phon=this.residentAddressSource.filteredData[0].contactNumber;
+      this.emai=this.residentAddressSource.filteredData[0].email;
+    }
+    
     if( this.searchParams.get("residentAddress").value==="" &&
         this.searchParams.get("residentName").value==="" && 
         this.searchParams.get("guestName").value==="" &&

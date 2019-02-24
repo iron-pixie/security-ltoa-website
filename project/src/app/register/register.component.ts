@@ -40,13 +40,12 @@ export class RegisterComponent implements OnInit {
   tryRegister(form){
 
     if(this.formGroup.get("name").dirty && 
-      this.formGroup.get("userLevel").dirty && 
       this.formGroup.get("userName").dirty &&
       this.formGroup.get("password").dirty){
     let input = form.value;
     let register={
       "Name":input["name"],
-      "userLevel":input["userLevel"],
+      "userLevel":"security",
       "userName":input["userName"],
       "Password":input["password"]
     };
