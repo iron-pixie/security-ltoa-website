@@ -7,4 +7,5 @@
     outline-color: #1E8301;
     outline-style: double;
     outline-width: 10px;
+    overflow-y: scroll;
 }

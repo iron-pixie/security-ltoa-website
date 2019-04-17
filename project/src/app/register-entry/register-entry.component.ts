@@ -44,6 +44,7 @@ export class RegisterEntryComponent implements OnInit {
   residentAddres="";
   phon="";
   emai="";
+  specialInstruc="";
 
   constructor(private http:HttpClient, private router:Router) {
     this.residentNameSource = new MatTableDataSource();
@@ -86,18 +87,13 @@ export class RegisterEntryComponent implements OnInit {
           let residentAddressTrue = data.residentAddress.toLowerCase().includes(residentAddress);
           let residentNameTrue = data.residentName.toLowerCase().includes(residentName);
           let guestNameTrue = data.guestName.toLowerCase().includes(guestName);
-          let phone = filterGroup.get("phone").value.toLowerCase().trim();
-          let phoneTrue = data.guestName.toLowerCase().includes(phone);
           let index=false;
           for(let i=0;i<4;i++){
             if(!index && data.guestName.toLowerCase().trim().includes(filterGroup.get(i.toString()).value.toLowerCase().trim())){
               index=true;
             }
           }
-          //return residentNameTrue;
-          //return residentAddressTrue && residentNameTrue;
-          //return residentAddressTrue && residentNameTrue && guestNameTrue;
-          return residentAddressTrue && residentNameTrue && guestNameTrue && phoneTrue && index;
+          return residentAddressTrue && residentNameTrue && guestNameTrue && index;
         } 
 
         this.guestSource.filterPredicate = function(data,residentName): boolean{
@@ -111,12 +107,10 @@ export class RegisterEntryComponent implements OnInit {
           let residentAddressTrue = data.residentAddress.toLowerCase().includes(residentAddress);
           let residentNameTrue = data.residentName.toLowerCase().includes(residentName);
           let guestNameTrue = data.guestName.toLowerCase().includes(guestName);
-          let phone = filterGroup.get("phone").value.toLowerCase().trim();
-          let phoneTrue = data.guestName.toLowerCase().includes(phone);
           //return residentNameTrue;
           //return residentAddressTrue && residentNameTrue;
           //return residentAddressTrue && residentNameTrue && guestNameTrue;
-          return residentAddressTrue && residentNameTrue && guestNameTrue && phoneTrue;
+          return residentAddressTrue && residentNameTrue && guestNameTrue ;
         } 
 
         this.residentSource.filter = this.searchParams;
@@ -143,32 +137,46 @@ export class RegisterEntryComponent implements OnInit {
   filterResidentData(){
     this.residentNameSource.filter = this.searchParams.get("residentName").value.toLowerCase().trim();
     this.residentAddressSource.filter = this.searchParams.get("residentAddress").value.toLowerCase().trim();
-
-    if(this.residentNameSource.filteredData.length===1){
+    
+    if(this.residentNameSource.filteredData.length>0 && this.residentNameSource.filteredData.length<10){
       this.residentNam=this.residentNameSource.filteredData[0].memberName;
       this.residentAddres=this.residentNameSource.filteredData[0].memberAddress;
       this.phon=this.residentNameSource.filteredData[0].contactNumber;
       this.emai=this.residentNameSource.filteredData[0].email;
+      let headersVar = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+      let memberJSON = {
+        "memberName":this.residentNameSource.filteredData[0].memberName
+      }
+      this.http.post('https://d1jq46p2xy7y8u.cloudfront.net/member/instructions/search',memberJSON,{headers: headersVar})
+        .subscribe(response => {
+          this.specialInstruc = response["specialInstructions"];
+        })
     }
-    if(this.residentAddressSource.filteredData.length===1){
+    else if(this.residentAddressSource.filteredData.length>0 && this.residentAddressSource.filteredData.length<10){
       this.residentNam=this.residentAddressSource.filteredData[0].memberName;
       this.residentAddres=this.residentAddressSource.filteredData[0].memberAddress;
       this.phon=this.residentAddressSource.filteredData[0].contactNumber;
       this.emai=this.residentAddressSource.filteredData[0].email;
-    }
-    
-    if( this.searchParams.get("residentAddress").value==="" &&
-        this.searchParams.get("residentName").value==="" && 
-        this.searchParams.get("guestName").value==="" &&
-        this.searchParams.get("phone").value===""){
-      this.tableSource = this.residentSource;
+      let headersVar = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+      let memberJSON = {
+        "memberName":this.residentAddressSource.filteredData[0].memberName
+      }
+      this.http.post('https://d1jq46p2xy7y8u.cloudfront.net/member/instructions/search',memberJSON,{headers: headersVar})
+        .subscribe(response => {
+          this.specialInstruc = response["specialInstructions"];
+        })
     }
     else{
-      this.tableSource = this.guestFullSort;
-      this.pageingIndex=0;
+      this.residentNam="";
+      this.residentAddres="";
+      this.phon="";
+      this.emai="";
+      this.specialInstruc ="";
     }
+    this.pageingIndex=0; 
+    this.updatePaginationFilter();
     this.submittingGuest=false;
-    this.residentSource.filter = this.searchParams;
+    this.tableSource.filter = this.searchParams;
     this.guestFullSort.filter = this.searchParams;
     this.searchStarted=true;
     this.successfulRegistration=false;
@@ -196,10 +204,8 @@ export class RegisterEntryComponent implements OnInit {
   }
 
   guestNameClick(i){
-    console.log(i);
     this.submittingGuest=true;
-    this.successfulRegistration=false
-    console.log(this.tableSource.filteredData)
+    this.successfulRegistration=false;
     this.focusedGuest=this.tableSource.filteredData[i];
   }
 
@@ -245,26 +251,22 @@ export class RegisterEntryComponent implements OnInit {
   }
 
   paginationChange(pageE: any){
-    if( this.searchParams.get("residentAddress").value==="" &&
-        this.searchParams.get("residentName").value==="" && 
-        this.searchParams.get("guestName").value==="" &&
-        this.searchParams.get("phone").value===""){
-      this.tableSource = this.residentSource;
-    }
-    else{
-      this.tableSource = this.guestFullSort;
-    }
     this.pageingIndex=pageE.pageIndex;
+    this.updatePaginationFilter();
+    this.pageingLength = this.guestFullSort.filteredData.length;
+    this.residentSource.filter = this.searchParams;
+    this.guestFullSort.filter=this.searchParams;
+  }
+
+  updatePaginationFilter(){
     for(let i=0;i<4;i++){
-      if(this.guestFullSort.filteredData[this.pageingIndex*4+i].guestName!=null){
+      if(this.guestFullSort.filteredData[this.pageingIndex*4+i]!=null && this.guestFullSort.filteredData[this.pageingIndex*4+i].guestName!=null){
         this.searchParams.get(i.toString()).setValue(this.guestFullSort.filteredData[this.pageingIndex*4+i].guestName);
       }
       else{
-        this.searchParams.get(i.toString()).setValue("-1");
+        this.searchParams.get(i.toString()).setValue("-2");
       }
     }
-    this.pageingLength = this.guestFullSort.filteredData.length;
-    this.residentSource.filter = this.searchParams;
   }
 
 }

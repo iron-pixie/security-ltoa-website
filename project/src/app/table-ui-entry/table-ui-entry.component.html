@@ -1,5 +1,5 @@
 <div class="topLevelDiv">
-  <mat-table [dataSource]="dataSource.filteredData" *ngIf="done">
+  <mat-table [dataSource]="entrySource" *ngIf="done">
 
       <ng-template ngFor let-key let-i="index" [ngForOf]="keys">
         <ng-container matColumnDef={{columnNames[i]}}>
@@ -19,5 +19,4 @@
       <mat-row *matRowDef="let myRowData; columns: columnNames"></mat-row>
       
     </mat-table>
-    <mat-paginator [pageSize]="8" [length]="pageingLength" [pageIndex]="index" (page)="pageEvent = paginationChange($event)"></mat-paginator>
 </div>

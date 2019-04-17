@@ -91,7 +91,7 @@
     <div class = "botCard memberCard">
       <mat-card>
         <p>Special Instructions</p>
-        <p></p>
+        <p *ngIf="specialInstruc!=''">{{specialInstruc}}</p>
       </mat-card>
     </div>
   </div>
@@ -120,7 +120,7 @@
         <ng-template class="guestTableRows" ngFor let-key let-i="index" [ngForOf]="keys">
           <ng-container matColumnDef={{columnNames[i]}}>
             <mat-header-cell *matHeaderCellDef>{{columnNames[i]}}</mat-header-cell>
-            <mat-cell *matCellDef="let guest" >{{guest[key]}}</mat-cell>
+            <mat-cell *matCellDef="let guest" >{{guest[key]}} is a guest of {{guest["residentName"]}}</mat-cell>
           </ng-container>
         </ng-template>
         
