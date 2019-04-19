@@ -37,7 +37,7 @@ export class RegisterEntryComponent implements OnInit {
 
   guestsStored=["Stephen Harb","grandma","Jacob Sterling","Leon Mosby","grandma1"];
   pageingIndex=0;
-  pageingLength=4; //code test
+  pageingLength=4; 
   tableSource;
 
   residentNam="";

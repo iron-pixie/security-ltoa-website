@@ -42,7 +42,8 @@
               Guest Name is required
             </mat-error>
         </mat-form-field>
-        <a (click)="removeFromGuestArray(i)">remove</a>
+        <button mat-raised-button type="button" (click)="removeFromGuestArray(i)">remove</button>
+
         <div *ngIf="tryRemoveLast" class="alert">Must have at least 1 guest</div>
         <br>
       </div>
