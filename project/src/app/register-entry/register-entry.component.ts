@@ -91,6 +91,7 @@ export class RegisterEntryComponent implements OnInit {
           for(let i=0;i<4;i++){
             if(!index && data.guestName.toLowerCase().trim().includes(filterGroup.get(i.toString()).value.toLowerCase().trim())){
               index=true;
+              filterGroup.get(i.toString()).setValue("---------------------");
             }
           }
           return residentAddressTrue && residentNameTrue && guestNameTrue && index;
