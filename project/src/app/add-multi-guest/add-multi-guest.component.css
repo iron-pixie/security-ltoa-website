@@ -21,6 +21,14 @@
     margin-left:15px;
 }
 
+#outterdiv{
+    overflow: auto;
+    height: 50%;
+
+  
+
+}
+
 /*.a0{
     color: red;
 }
