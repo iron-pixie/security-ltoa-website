@@ -13,6 +13,7 @@ import { Router } from '@angular/router'
 export class AddMultiGuestComponent implements OnInit {
   formGroup;
   tryRemoveLast=false;
+  buttonDisabled=true;
   constructor(private http:HttpClient,private router:Router) {
     this.formGroup = new FormGroup({
       guestArray: new FormArray([
@@ -31,6 +32,11 @@ export class AddMultiGuestComponent implements OnInit {
 
   addToGuestArray(){
     this.formGroup.get("guestArray").push(new FormControl(""));
+    this.buttonDisabled=true;
+  }
+
+  verifyValid(){
+    this.buttonDisabled=this.formGroup.invalid;
   }
 
   removeFromGuestArray(index){

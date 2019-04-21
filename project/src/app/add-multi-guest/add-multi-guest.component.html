@@ -7,7 +7,8 @@
             formControlName="reason"
             matInput 
             placeholder="Reason for the visit" 
-            value="">
+            value=""
+            (keyup)="verifyValid()">
         </mat-form-field>
   
       <mat-divider></mat-divider>
@@ -20,7 +21,8 @@
           type="date"
           placeholder="Date of the event" 
           value=""
-          required>
+          required
+          (keyup)="verifyValid()">
           <mat-error >
             Date is required
           </mat-error>
@@ -37,7 +39,8 @@
             matInput 
             placeholder="Guest Name" 
             value=""
-            required>
+            required
+            (keyup)="verifyValid()">
             <mat-error >
               Guest Name is required
             </mat-error>
@@ -50,6 +53,6 @@
 
 
     <button class="guestButton" mat-raised-button type="button" (click)="addToGuestArray()">Add Guest</button>
-    <button class="submitButton" mat-raised-button type="button" [disabled]="formGroup.invalid" (click)="submit(formGroup)" >submit</button>
+    <button class="submitButton" mat-raised-button type="submit" (click)="submit(formGroup)" disabled={{buttonDisabled}}>submit</button>
   </div>
 </form>
