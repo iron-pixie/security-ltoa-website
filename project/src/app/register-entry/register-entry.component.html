@@ -14,7 +14,8 @@
               value=""
               [matAutocomplete]="autoName"
               (keyup)="sortDropdown()"
-            >  
+              (focus)="sortDropdown()"
+              (focusout)="sortDropdown()">  
             <mat-autocomplete #autoName="matAutocomplete">
               <mat-option 
                 *ngFor="let option of residentNameSource?.filteredData;let i = index" 
@@ -36,6 +37,8 @@
               value=""
               [matAutocomplete]="auto"
               (keyup)="sortDropdown()"
+              (focus)="sortDropdown()"
+              (focusout)="sortDropdown()"
             >
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option 
@@ -57,6 +60,8 @@
               placeholder="Guest Name" 
               value=""
               (keyup)="sortDropdown()"
+              (focus)="sortDropdown()"
+              (focusout)="sortDropdown()"
             >  
             <!--<mat-autocomplete #autoGuest="matAutocomplete">
               <mat-option 
